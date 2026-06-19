@@ -1,0 +1,10 @@
+python3 resnet_benchmark2.py 
+/home/eneko/.local/lib/python3.10/site-packages/torch/_subclasses/functional_tensor.py:267: UserWarning: Failed to initialize NumPy: module compiled against API version 0x10 but this version of numpy is 0xe . Check the section C-API incompatibility at the Troubleshooting ImportError section at https://numpy.org/devdocs/user/troubleshooting-importerror.html#c-api-incompatibility for indications on how to solve this problem . (Triggered internally at /opt/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+Generando dataset...
+Traceback (most recent call last):
+  File "/home/eneko/ABARAN/resnet_benchmark2.py", line 33, in <module>
+    X, y = generate_dataset(5000, 1024, 10)
+  File "/home/eneko/ABARAN/resnet_benchmark2.py", line 30, in generate_dataset
+    return torch.from_numpy(X), torch.from_numpy(y)
+RuntimeError: Numpy is not available

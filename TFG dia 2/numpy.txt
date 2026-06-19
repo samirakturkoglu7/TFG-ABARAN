@@ -1,0 +1,33 @@
+python3 -c "import numpy; print(numpy.__version__)"
+2.2.6
+eneko@eneko-desktop:~/ABARAN$ python3 -c "import torch; import numpy; print(torch.cuda.is_available())"
+
+A module that was compiled using NumPy 1.x cannot be run in
+NumPy 2.2.6 as it may crash. To support both 1.x and 2.x
+versions of NumPy, modules must be compiled with NumPy 2.0.
+Some module may need to rebuild instead e.g. with 'pybind11>=2.12'.
+
+If you are a user of the module, the easiest solution will be to
+downgrade to 'numpy<2' or try to upgrade the affected module.
+We expect that some modules will need time to support NumPy 2.
+
+Traceback (most recent call last):  File "<string>", line 1, in <module>
+  File "/home/eneko/.local/lib/python3.10/site-packages/torch/__init__.py", line 2422, in <module>
+    from torch import (
+  File "/home/eneko/.local/lib/python3.10/site-packages/torch/export/__init__.py", line 64, in <module>
+    from .dynamic_shapes import Constraint, Dim, dims, dynamic_dim, ShapesCollection
+  File "/home/eneko/.local/lib/python3.10/site-packages/torch/export/dynamic_shapes.py", line 18, in <module>
+    from .exported_program import ExportedProgram
+  File "/home/eneko/.local/lib/python3.10/site-packages/torch/export/exported_program.py", line 24, in <module>
+    from torch._higher_order_ops.utils import autograd_not_implemented
+  File "/home/eneko/.local/lib/python3.10/site-packages/torch/_higher_order_ops/__init__.py", line 1, in <module>
+    from torch._higher_order_ops.cond import cond
+  File "/home/eneko/.local/lib/python3.10/site-packages/torch/_higher_order_ops/cond.py", line 5, in <module>
+    import torch._subclasses.functional_tensor
+  File "/home/eneko/.local/lib/python3.10/site-packages/torch/_subclasses/functional_tensor.py", line 42, in <module>
+    class FunctionalTensor(torch.Tensor):
+  File "/home/eneko/.local/lib/python3.10/site-packages/torch/_subclasses/functional_tensor.py", line 267, in FunctionalTensor
+    cpu = _conversion_method_template(device=torch.device("cpu"))
+/home/eneko/.local/lib/python3.10/site-packages/torch/_subclasses/functional_tensor.py:267: UserWarning: Failed to initialize NumPy: _ARRAY_API not found (Triggered internally at /opt/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+True

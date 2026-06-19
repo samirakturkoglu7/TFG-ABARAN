@@ -1,0 +1,26 @@
+python3 resnet_benchmark.py 
+/home/eneko/.local/lib/python3.10/site-packages/torch/_subclasses/functional_tensor.py:267: UserWarning: Failed to initialize NumPy: module compiled against API version 0x10 but this version of numpy is 0xe . Check the section C-API incompatibility at the Troubleshooting ImportError section at https://numpy.org/devdocs/user/troubleshooting-importerror.html#c-api-incompatibility for indications on how to solve this problem . (Triggered internally at /opt/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+Parámetros: 100,298 | Peso: 0.38 MB
+
+Entrenando...
+  Epoch 1/5 loss: 372.931
+  Epoch 2/5 loss: 367.288
+  Epoch 3/5 loss: 366.200
+  Epoch 4/5 loss: 364.550
+  Epoch 5/5 loss: 363.671
+
+── Resultados entrenamiento ──
+Tiempo:      37643 ms
+VRAM pico:   197.2 MB
+RAM proceso: 1177.3 MB
+
+Midiendo inferencia (100 runs, batch=1)...
+
+── Resultados inferencia ──
+Latencia media: 3.571 ms
+Latencia std:   0.037 ms
+Latencia min:   3.511 ms
+Latencia max:   3.674 ms
+
+Potencia actual: 9.96 W

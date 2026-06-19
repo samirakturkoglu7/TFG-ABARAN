@@ -1,0 +1,22 @@
+python3 mlp_benchmark.py
+/home/eneko/.local/lib/python3.10/site-packages/torch/_subclasses/functional_tensor.py:267: UserWarning: Failed to initialize NumPy: module compiled against API version 0x10 but this version of numpy is 0xe . Check the section C-API incompatibility at the Troubleshooting ImportError section at https://numpy.org/devdocs/user/troubleshooting-importerror.html#c-api-incompatibility for indications on how to solve this problem . (Triggered internally at /opt/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+Entrenando...
+  Epoch 1/5 loss: 57.605
+  Epoch 2/5 loss: 10.982
+  Epoch 3/5 loss: 1.407
+  Epoch 4/5 loss: 0.284
+  Epoch 5/5 loss: 0.135
+
+── Resultados entrenamiento ──
+Tiempo:      2839 ms
+VRAM pico:   116.7 MB
+RAM proceso: 703.3 MB
+
+Midiendo inferencia (100 runs, batch=1)...
+
+── Resultados inferencia ──
+Latencia media: 0.916 ms
+Latencia std:   0.216 ms
+Latencia min:   0.703 ms
+Latencia max:   1.501 ms
