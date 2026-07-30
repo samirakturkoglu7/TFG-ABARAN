@@ -1,0 +1,46 @@
+Generando dataset...
+/home/eneko/ABARAN/TFG-GIT/TFG-ABARAN/TFG_dia_3/kd_clasificacion.py:193: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  teacher.load_state_dict(torch.load("resnet_teacher.pth", map_location=DEVICE))
+Teacher cargado — accuracy: 100.0%
+
+── Entrenando student con KD_T2_a0.3 (T=2, alpha=0.3) ──
+  Epoch 1/10 | loss: 0.3501 | acc: 100.0%
+  Epoch 2/10 | loss: 0.0244 | acc: 100.0%
+  Epoch 3/10 | loss: 0.0204 | acc: 100.0%
+  Epoch 4/10 | loss: 0.0171 | acc: 100.0%
+  Epoch 5/10 | loss: 0.0154 | acc: 100.0%
+  Epoch 6/10 | loss: 0.0136 | acc: 100.0%
+  Early stopping en epoch 6
+
+── Entrenando student con KD_T4_a0.7 (T=4, alpha=0.7) ──
+  Epoch 1/10 | loss: 2.9633 | acc: 100.0%
+  Epoch 2/10 | loss: 1.0733 | acc: 100.0%
+  Epoch 3/10 | loss: 0.8811 | acc: 100.0%
+  Epoch 4/10 | loss: 0.7549 | acc: 100.0%
+  Epoch 5/10 | loss: 0.6145 | acc: 100.0%
+  Epoch 6/10 | loss: 0.4858 | acc: 100.0%
+  Early stopping en epoch 6
+
+── Entrenando student con KD_T8_a0.9 (T=8, alpha=0.9) ──
+  Epoch 1/10 | loss: 8.8862 | acc: 100.0%
+  Epoch 2/10 | loss: 5.7676 | acc: 100.0%
+  Epoch 3/10 | loss: 4.4576 | acc: 100.0%
+  Epoch 4/10 | loss: 2.3987 | acc: 100.0%
+  Epoch 5/10 | loss: 0.6610 | acc: 100.0%
+  Epoch 6/10 | loss: 0.1986 | acc: 100.0%
+  Early stopping en epoch 6
+
+======================================================================
+RESUMEN KNOWLEDGE DISTILLATION
+======================================================================
+Config                    Acc     Latencia       VRAM       Tiempo
+----------------------------------------------------------------------
+/home/eneko/ABARAN/TFG-GIT/TFG-ABARAN/TFG_dia_3/kd_clasificacion.py:230: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  mlp_base.load_state_dict(torch.load("mlp_student.pth", map_location=DEVICE))
+MLP baseline           100.0%      0.781ms    116.7MB  (ya medido)
+KD_T2_a0.3             100.0%      0.811ms     406.0MB      13481ms
+KD_T4_a0.7             100.0%      0.832ms     406.0MB      12772ms
+KD_T8_a0.9             100.0%      0.850ms     406.0MB      12753ms
+======================================================================
+
+Potencia actual: 12.64 W
