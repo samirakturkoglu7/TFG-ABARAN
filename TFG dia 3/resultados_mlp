@@ -1,0 +1,17 @@
+python3 mlp_correcto.py 
+Generando dataset...
+Entrenando MLP con dataset correcto...
+  Epoch 1/5 loss: 0.1347
+  Epoch 2/5 loss: 0.0006
+  Epoch 3/5 loss: 0.0002
+  Epoch 4/5 loss: 0.0002
+  Epoch 5/5 loss: 0.0001
+
+── Resultados ──
+Tiempo entrenamiento: 1867 ms
+VRAM pico:            116.7 MB
+Accuracy (train):     100.0%
+Modelo guardado en mlp_student.pth
+
+Midiendo inferencia...
+Latencia media: 0.785 ms
