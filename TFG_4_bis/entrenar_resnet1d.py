@@ -27,30 +27,36 @@ N_CLASSES = 10
 # --- 1. DATASET MÁS COMPLEJO (MÁS RUIDO) ---
 def generate_complex_dataset(n_samples, input_size, n_classes):
     """
-    Genera señales armónicas 1D con un nivel de ruido gaussiano mayor
-    para dificultar la clasificación perfecta y evaluar mejor la cuantización.
+    Genera señales armónicas 1D bajo condiciones de extremo ruido y solapamiento.
+    Forzamos un SNR (Signal-to-Noise Ratio) muy pobre para que la ResNet
+    no alcance el 100% de Accuracy fácilmente y sirva para evaluar cuantización.
     """
-    print(f"Generando {n_samples} muestras de dataset...")
+    print(f"Generando {n_samples} muestras de dataset extremo...")
     t = np.linspace(0, 1, input_size, dtype=np.float32)
-    X = np.zeros((n_samples, 1, input_size), dtype=np.float32) # [Batch, Channels=1, Length]
+    X = np.zeros((n_samples, 1, input_size), dtype=np.float32)
     y = np.zeros(n_samples, dtype=np.int64)
     
     for i in range(n_samples):
         dominant = np.random.randint(1, 6)
         signal = np.zeros(input_size, dtype=np.float32)
+        
         for h in range(1, 6):
-            amp = (1.0 / h) if h != dominant else 2.5 # Señal dominante
+            # La diferencia de amplitud entre la dominante y las demás es mínima
+            amp = 0.5 if h != dominant else 0.8
+            # Ruido de fase severo e inestable a lo largo de la señal
             phase = np.random.uniform(0, 2 * math.pi)
-            signal += amp * np.sin(2 * math.pi * h * 50.0 * t + phase)
+            # Frecuencias ligeramente desplazadas para evitar patrones puros
+            freq_shift = np.random.uniform(-2.0, 2.0)
             
-        # Aumentamos el ruido (0.5 de std dev) para forzar a la red a generalizar
-        signal += np.random.normal(0, 0.5, input_size).astype(np.float32)
+            signal += amp * np.sin(2 * math.pi * (h * 50.0 + freq_shift) * t + phase)
+            
+        # Ruido de fondo brutal (std dev = 2.5) que casi entierra la señal original
+        signal += np.random.normal(0, 2.5, input_size).astype(np.float32)
         
         X[i, 0, :] = signal
         y[i] = (dominant - 1) % n_classes
         
     return torch.from_numpy(X), torch.from_numpy(y)
-
 # --- 2. ARQUITECTURA RESNET-1D ---
 class ResidualBlock1D(nn.Module):
     def __init__(self, in_channels, out_channels, stride=1):
