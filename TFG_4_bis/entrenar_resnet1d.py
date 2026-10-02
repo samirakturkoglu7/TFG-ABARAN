@@ -16,7 +16,7 @@ import time
 
 # --- CONFIGURACIÓN ---
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-EPOCHS = 15
+EPOCHS = 20
 BATCH_SIZE = 64
 LR = 0.001
 N_SAMPLES_TRAIN = 8000
@@ -42,16 +42,16 @@ def generate_complex_dataset(n_samples, input_size, n_classes):
         
         for h in range(1, 6):
             # La diferencia de amplitud entre la dominante y las demás es mínima
-            amp = 0.5 if h != dominant else 0.8
+            amp = 0.4 if h != dominant else 1.2
             # Ruido de fase severo e inestable a lo largo de la señal
             phase = np.random.uniform(0, 2 * math.pi)
             # Frecuencias ligeramente desplazadas para evitar patrones puros
-            freq_shift = np.random.uniform(-2.0, 2.0)
+            freq_shift = np.random.uniform(-1.0, 1.0)
             
             signal += amp * np.sin(2 * math.pi * (h * 50.0 + freq_shift) * t + phase)
             
-        # Ruido de fondo brutal (std dev = 2.5) que casi entierra la señal original
-        signal += np.random.normal(0, 2.5, input_size).astype(np.float32)
+        # Ruido de fondo brutal (std dev = 1.2) que casi entierra la señal original
+        signal += np.random.normal(0, 1.2, input_size).astype(np.float32)
         
         X[i, 0, :] = signal
         y[i] = (dominant - 1) % n_classes
