@@ -32,7 +32,7 @@ import platform
 
 # ── DEVICE: PTQ corre en CPU (la cuantización estática de PyTorch no soporta CUDA)
 # Los modelos cuantizados a INT8 se ejecutan en CPU con qnnpack (backend ARM de Jetson)
-DEVICE_TRAIN = torch.device("cuda")  # Para generar datos
+DEVICE_TRAIN = torch.device("cuda" if torch.cuda.is_avaialble() else "cpu")  # Para generar datos
 DEVICE_QUANT = torch.device("cpu")   # Para cuantización
 
 # ── DATASET ──────────────────────────────────────────────────────────────────
@@ -99,14 +99,29 @@ def medir_latencia(model, x_sample, n=100, warmup=10, device=DEVICE_QUANT):
     """
     model.eval()
     x_sample = x_sample.to(device)
+    
     with torch.no_grad():
+
         for _ in range(warmup):
             _ = model(x_sample)
+            
+        if device.type == 'cuda':
+            torch.cuda.synchronize()
+        	
         lats = []
         for _ in range(n):
-            t0 = time.perf_counter()
-            _ = model(x_sample)
-            lats.append((time.perf_counter() - t0) * 1000)
+            if device.type == 'cuda':
+                starter, ender = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
+		starter.record()
+		_ = model(x_sample)
+		ender.record()
+		torch.cuda.synchronize()
+		lats.append(starter.elapsed_time(ender))
+	    else:
+	        t0 = time.perf_counter()
+		_ = model(x_sample)
+		lats.append((time.perf_counter() - t0) * 1000)
+		    
     return statistics.mean(lats), statistics.stdev(lats)
 
 def tamanyo_modelo_mb(model):
@@ -192,6 +207,16 @@ if __name__ == "__main__":
             torch.load(pth, map_location=DEVICE_QUANT, weights_only=True)
         )
         model_fp32.eval()
+        
+        if torch.cuda.is_available():
+        	model_gpu = MLP().to(DEVICE_TRAIN)
+        	model_gpu.load_state_dict(torch.load(pth, map_location=DEVICE_TRAIN, weights_only=True))
+        	model_gpu.eval()
+        	lat_gpu, std_gpu = medir_latencia(model_gpu, X_cpu[:1], device=DEVICE_TRAIN)
+        	print(f"\nFP32 (GPU CUDA):")
+        	print(f" Latencia: {lat_gpu:.3f} ms ± {std_gpu:.3f}")
+        else: 
+        	lat_gpu = 0.0
 
         acc_fp32  = accuracy(model_fp32, X_cpu, y_cpu)
         lat_fp32, std_fp32 = medir_latencia(model_fp32, X_cpu[:1])
