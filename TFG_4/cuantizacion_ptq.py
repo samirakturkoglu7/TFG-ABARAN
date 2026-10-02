@@ -22,7 +22,8 @@ Requiere en el mismo directorio:
 import torch
 import torch.nn as nn
 import torch.ao.quantization as tq
-from torch.ao.quantization import prepare_fx, convert_fx, QConfigMapping
+from torch.ao.quantization.quantize_fx import prepare_fx, convert_fx
+from torch.ao.quantization import QConfigMapping
 import numpy as np
 import math
 import time
@@ -32,7 +33,7 @@ import platform
 
 # ── DEVICE: PTQ corre en CPU (la cuantización estática de PyTorch no soporta CUDA)
 # Los modelos cuantizados a INT8 se ejecutan en CPU con qnnpack (backend ARM de Jetson)
-DEVICE_TRAIN = torch.device("cuda" if torch.cuda.is_avaialble() else "cpu")  # Para generar datos
+DEVICE_TRAIN = torch.device("cuda" if torch.cuda.is_available() else "cpu")  # Para generar datos
 DEVICE_QUANT = torch.device("cpu")   # Para cuantización
 
 # ── DATASET ──────────────────────────────────────────────────────────────────
