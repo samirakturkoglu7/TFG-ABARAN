@@ -99,29 +99,29 @@ def medir_latencia(model, x_sample, n=100, warmup=10, device=DEVICE_QUANT):
     """
     model.eval()
     x_sample = x_sample.to(device)
-    
+
     with torch.no_grad():
 
         for _ in range(warmup):
             _ = model(x_sample)
-            
+
         if device.type == 'cuda':
             torch.cuda.synchronize()
-        	
+
         lats = []
         for _ in range(n):
             if device.type == 'cuda':
                 starter, ender = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
-		starter.record()
-		_ = model(x_sample)
-		ender.record()
-		torch.cuda.synchronize()
-		lats.append(starter.elapsed_time(ender))
-	    else:
-	        t0 = time.perf_counter()
-		_ = model(x_sample)
-		lats.append((time.perf_counter() - t0) * 1000)
-		    
+                starter.record()
+                _ = model(x_sample)
+                ender.record()
+                torch.cuda.synchronize()
+                lats.append(starter.elapsed_time(ender))
+            else:
+                t0 = time.perf_counter()
+                _ = model(x_sample)
+                lats.append((time.perf_counter() - t0) * 1000)
+
     return statistics.mean(lats), statistics.stdev(lats)
 
 def tamanyo_modelo_mb(model):
@@ -135,11 +135,11 @@ def tamanyo_modelo_mb(model):
 def cuantizar_ptq(model_fp32, calibration_data, backend):
     """
     Post-Training Static Quantization usando la API moderna de PyTorch (fx graph mode).
-    
+
     Paso 1: prepare_fx — inserta observers que miden rangos de activaciones
     Paso 2: calibración — pasar datos reales para que los observers aprendan los rangos
     Paso 3: convert_fx — sustituye capas float32 por versiones INT8
-    
+
     El modelo debe estar en CPU para cuantización estática.
     """
     model_fp32.eval()
@@ -207,16 +207,16 @@ if __name__ == "__main__":
             torch.load(pth, map_location=DEVICE_QUANT, weights_only=True)
         )
         model_fp32.eval()
-        
+
         if torch.cuda.is_available():
-        	model_gpu = MLP().to(DEVICE_TRAIN)
-        	model_gpu.load_state_dict(torch.load(pth, map_location=DEVICE_TRAIN, weights_only=True))
-        	model_gpu.eval()
-        	lat_gpu, std_gpu = medir_latencia(model_gpu, X_cpu[:1], device=DEVICE_TRAIN)
-        	print(f"\nFP32 (GPU CUDA):")
-        	print(f" Latencia: {lat_gpu:.3f} ms ± {std_gpu:.3f}")
-        else: 
-        	lat_gpu = 0.0
+            model_gpu = MLP().to(DEVICE_TRAIN)
+            model_gpu.load_state_dict(torch.load(pth, map_location=DEVICE_TRAIN, weights_only=True))
+            model_gpu.eval()
+            lat_gpu, std_gpu = medir_latencia(model_gpu, X_cpu[:1], device=DEVICE_TRAIN)
+            print(f"\nFP32 (GPU CUDA):")
+            print(f" Latencia: {lat_gpu:.3f} ms ± {std_gpu:.3f}")
+        else:
+            lat_gpu = 0.0
 
         acc_fp32  = accuracy(model_fp32, X_cpu, y_cpu)
         lat_fp32, std_fp32 = medir_latencia(model_fp32, X_cpu[:1])
