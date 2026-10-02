@@ -1,0 +1,25 @@
+Para llevar tu estudio de cuantización a un nivel de rigor máximo (nivel investigación / publicación / Matrícula de Honor), no basta con hacer solo PTQ estática sobre una red básica.El plan completo para esta nueva fase se basa en diseñar un modelo más complejo (donde la cuantización sí suponga un reto), explorar todas las variantes de cuantización y medir el impacto bajo diferentes condiciones de datos y arquitecturas.Aquí tienes la guía paso a paso de lo que vamos a hacer a continuación en la Jetson:📋 Plan de Acción Completo: Estudio Exhaustivo de Cuantización[ PASO 1 ] Crear y entrenar un nuevo modelo más complejo (Conv1D / ResNet1D / MLP Profundo)
+    │
+[ PASO 2 ] Aplicar Cuantización Estática Post-Entrenamiento (PTQ Estática)
+    │
+[ PASO 3 ] Aplicar Cuantización Dinámica Post-Entrenamiento (PTQ Dinámica)
+    │
+[ PASO 4 ] Aplicar Entrenamiento Consciente de Cuantización (QAT - Quantization-Aware Training)
+    │
+[ PASO 5 ] Evaluar Cuantización Per-Tensor vs. Per-Channel
+    │
+[ PASO 6 ] Estudio de Sensibilidad de Calibración (50 vs 200 vs 1000 muestras)
+    │
+[ PASO 7 ] Combinar Poda (Pruning) + Cuantización
+    │
+[ PASO 8 ] Benchmark Global y Gráficas de Trade-off (Precisión vs Latencia vs Tamaño)
+
+Paso 1: Crear un Modelo Más ComplejoEl MLP actual es simple y el dataset es muy limpio (100% de accuracy). Para ver dónde la cuantización degrada de verdad la precisión y dónde aporta más aceleración, crearemos una arquitectura CNN 1D (ResNet1D o ConvNet1D con bloques residuales) sobre un dataset con mayor nivel de ruido gaussiano y solapamiento de señales.   ¿Por qué? Las capas convolucionales (Conv1d) y de normalización (BatchNorm1d) responden de forma muy distinta a la cuantización en comparación con las capas lineales (Linear).
+
+Paso 2: Probar los 3 Tipos Principales de CuantizaciónCompararemos las 3 variantes fundamentales en PyTorch:Tipo de Cuantización¿Cuándo calcula escalas?¿Requiere reentrenar?Hardware destino1. PTQ Estática (Static)Antes de inferencia (vía calibración)   No   CPU ARM (qnnpack)   2. PTQ Dinámica (Dynamic)En tiempo de ejecución para activacionesNoCPU3. QAT (Quantization-Aware)Durante el entrenamiento (simulado con FakeQuant)Sí (reentrenamiento)CPU ARM (qnnpack)
+
+Paso 3: Análisis de Granularidad (Per-Tensor vs. Per-Channel)Estudiaremos el impacto de usar un solo parámetro de escala ($s$) para toda la capa (Per-Tensor) versus un parámetro de escala por cada filtro/canal (Per-Channel). Esto responderá directamente a la duda que planteaba tu profesor en la revisión del trabajo de Unai.
+
+Paso 4: Sensibilidad del Tamaño del Conjunto de CalibraciónHaremos un experimento donde la cuantización PTQ Estática se calibra con:50 muestras200 muestras1000 muestrasGraficaremos cómo evoluciona el error de cuantización según la cantidad de datos vistos en la fase de calibración.   
+
+Paso 5: Pipeline Combinado (Poda + Cuantización)Evaluaremos si una red que ha perdido el 50% o 70% de sus conexiones mediante poda (pruning) tolera el redondeo a INT8 de la misma forma que una red densa original.
