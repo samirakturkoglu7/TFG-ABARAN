@@ -102,7 +102,7 @@ print(f"Tiempo:      {t_train:.0f} ms")
 print(f"VRAM pico:   {peak_vram:.1f} MB")
 print(f"RAM proceso: {ram:.1f} MB")
 
-# Accuracy en el propio set de entrenamiento (orientativo)
+# Accuracy en el propio set de entrenamiento
 model.eval()
 with torch.no_grad():
     preds = model(X.unsqueeze(1)).argmax(dim=1)

@@ -31,13 +31,13 @@ class ResNet1D(nn.Module):
     def forward(self, x):
         out = torch.relu(self.bn1(self.conv1(x)))
         out = self.blocks(out)
-        out = torch.mean(out, dim=2)  # Global Average Pooling
+        out = torch.mean(out, dim=2)  
         return self.linear(out)
 
     def count_parameters(self):
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
 
-# Dataset sintético: señales 1D, igual que el MLP de ayer
+
 X = torch.randn(5000, 1024).to(DEVICE)
 y = torch.randint(0, 10, (5000,)).to(DEVICE)
 
@@ -46,9 +46,6 @@ n_params = model.count_parameters()
 weight_mb = sum(p.numel() * p.element_size() for p in model.parameters()) / 1024**2
 print(f"Parámetros: {n_params:,} | Peso: {weight_mb:.2f} MB")
 
-# SGD en lugar de Adam: en convolucionales el cuello de botella son las
-# activaciones, no los pesos. Adam tripica la memoria de optimizador y
-# puede provocar Error 12 (NvMapMemAllocInternalTagged) en este hardware.
 optimizer = optim.SGD(model.parameters(), lr=1e-2, momentum=0.9)
 criterion = nn.CrossEntropyLoss()
 
