@@ -102,9 +102,13 @@ def measure_latency_and_size(model, input_tensor, runs=100, is_quantized=False):
     torch.save(model.state_dict(), buf)
     size_mb = buf.tell() / (1024 ** 2)
     
-    model.eval()
+
     dev = DEVICE_QUANT if is_quantized else DEVICE
+    
+    model = model.to(dev)
     input_tensor = input_tensor.to(dev)
+    
+    model.eval()
     
     # Warmup
     with torch.no_grad():

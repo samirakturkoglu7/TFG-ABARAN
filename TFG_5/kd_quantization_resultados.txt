@@ -1,0 +1,19 @@
+python3 kd_quantization.py 
+=== INICIANDO PIPELINE DE KD Y CUANTIZACIÓN EN JETSON ===
+Dispositivo actual: cuda
+
+[1] Configurando Modelo Irakasle (Teacher FP32)...
+
+[2] Entrenando Modelo Ikasle (Student FP32) mediante Knowledge Distillation...
+
+[3] Aplicando PTQ INT8 al Ikasle (Student Distilled)...
+
+======================================================================
+  RESULTADOS DE NEURKETAK EN NVIDIA JETSON ORIN NANO
+======================================================================
+Modelo                    | Accuracy (%) | Tamaño (MB)  | Latencia (ms)  
+----------------------------------------------------------------------
+Teacher (FP32 - GPU)      | 99.60        | 0.96         | 5.267          
+Student KD (FP32 - GPU)   | 99.50        | 0.27         | 5.098          
+Student KD (INT8 - CPU)   | 99.60        | 0.08         | 3.487          
+======================================================================
