@@ -1,0 +1,30 @@
+python3 entrenar_resnet1d_2.py 
+Dispositivo de entrenamiento: cuda
+Generando 8000 muestras de dataset con solapamiento...
+Generando 2000 muestras de dataset con solapamiento...
+
+Iniciando entrenamiento...
+Epoch [1/20] - Loss: 0.5128 - Val Accuracy: 95.75%
+Epoch [2/20] - Loss: 0.1097 - Val Accuracy: 98.10%
+Epoch [3/20] - Loss: 0.0653 - Val Accuracy: 97.45%
+Epoch [4/20] - Loss: 0.0462 - Val Accuracy: 99.95%
+Epoch [5/20] - Loss: 0.0396 - Val Accuracy: 99.40%
+Epoch [6/20] - Loss: 0.0255 - Val Accuracy: 99.50%
+Epoch [7/20] - Loss: 0.0256 - Val Accuracy: 99.90%
+Epoch [8/20] - Loss: 0.0242 - Val Accuracy: 99.30%
+Epoch [9/20] - Loss: 0.0169 - Val Accuracy: 99.80%
+Epoch [10/20] - Loss: 0.0090 - Val Accuracy: 99.25%
+Epoch [11/20] - Loss: 0.0061 - Val Accuracy: 99.95%
+Epoch [12/20] - Loss: 0.0096 - Val Accuracy: 100.00%
+Epoch [13/20] - Loss: 0.0172 - Val Accuracy: 100.00%
+Epoch [14/20] - Loss: 0.0029 - Val Accuracy: 100.00%
+Epoch [15/20] - Loss: 0.0030 - Val Accuracy: 100.00%
+Epoch [16/20] - Loss: 0.0018 - Val Accuracy: 100.00%
+Epoch [17/20] - Loss: 0.0019 - Val Accuracy: 100.00%
+Epoch [18/20] - Loss: 0.0155 - Val Accuracy: 98.25%
+Epoch [19/20] - Loss: 0.0066 - Val Accuracy: 100.00%
+Epoch [20/20] - Loss: 0.0011 - Val Accuracy: 100.00%
+
+Entrenamiento completado en 97.11 segundos.
+Modelo guardado exitosamente como 'resnet1d_complejo_3.pth'
+

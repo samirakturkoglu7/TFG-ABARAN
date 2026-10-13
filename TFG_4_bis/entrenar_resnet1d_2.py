@@ -169,7 +169,7 @@ def train_model():
     print(f"\nEntrenamiento completado en {tiempo_total:.2f} segundos.")
     
     # NUEVO NOMBRE DE ARCHIVO
-    nombre_archivo = "resnet1d_complejo_2.pth"
+    nombre_archivo = "resnet1d_complejo_3.pth"
     torch.save(model.state_dict(), nombre_archivo)
     print(f"Modelo guardado exitosamente como '{nombre_archivo}'")
 

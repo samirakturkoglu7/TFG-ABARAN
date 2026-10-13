@@ -114,7 +114,7 @@ if __name__ == "__main__":
     if not os.path.exists("resnet1d_complejo_2.pth"):
         raise FileNotFoundError("¡Falta resnet1d_complejo_2.pth! Ejecuta el entrenamiento primero.")
     
-    model_fp32.load_state_dict(torch.load("resnet1d_complejo_2.pth", map_location=DEVICE_QUANT, weights_only=True))
+    model_fp32.load_state_dict(torch.load("resnet1d_complejo_3.pth", map_location=DEVICE_QUANT, weights_only=True))
     model_fp32.eval()
     
     acc_fp32 = accuracy(model_fp32, X_test, y_test)

@@ -1,0 +1,20 @@
+Generando dataset de validación...
+
+========================================
+[1] BASELINE FP32
+  Accuracy: 100.00% | Tamaño: 0.27 MB
+========================================
+
+[2] APLICANDO PTQ ESTÁTICA...
+  Calibrando con 500 muestras...
+  Accuracy PTQ: 100.00% | Tamaño: 0.08 MB
+  -> Degradación vs FP32: 0.00 pp
+
+[3] APLICANDO QAT (Reentrenamiento 2 épocas simulación INT8)...
+  Época QAT 1/2 completada.
+  Época QAT 2/2 completada.
+
+  Accuracy QAT: 100.00% | Tamaño: 0.08 MB
+
+=== RESUMEN FINAL ===
+FP32: 100.00% | PTQ: 100.00% | QAT: 100.00%
