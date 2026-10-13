@@ -220,7 +220,8 @@ if __name__ == "__main__":
     print(f"{'Student KD (FP32 - GPU)':<25} | {acc_student_kd:<12.2f} | {size_s:<12.2f} | {lat_s:<15.3f}")
     print(f"{'Student KD (INT8 - CPU)':<25} | {acc_student_quant:<12.2f} | {size_q:<12.2f} | {lat_q:<15.3f}")
     print("="*70)
-    # Guardar el modelo cuantizado (TorchScript para despliegue directo)
-    scripted_model = torch.jit.script(quant_student)
-    scripted_model.save("student_kd_int8_jetson.pt")
-    print("Modelo INT8 exportado exitosamente como 'student_kd_int8_jetson.pt'")
+    
+# Guardar el modelo cuantizado (TorchScript para despliegue directo)
+scripted_model = torch.jit.script(quant_student)
+scripted_model.save("student_kd_int8_jetson.pt")
+print("Modelo INT8 exportado exitosamente como 'student_kd_int8_jetson.pt'")
