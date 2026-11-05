@@ -1,0 +1,7 @@
+Cambios respecto a kd_quantization.py
+Semilla y dataset en caché: todos los perfiles usan los mismos datos, así que las diferencias de accuracy no vienen del dataset.
+Calibración PTQ con train: deja de usar parte del test.
+Test de 2000 muestras: antes eran 1000, que da una resolución de 0.1 pp.
+Latencia del student FP32 también en CPU: así comparas INT8 contra FP32 en el mismo dispositivo.
+Energía por etapa: julios con el INA3221, y potencia máxima y media.
+
