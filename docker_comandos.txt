@@ -1,0 +1,21 @@
+docker pull dustynv/pytorch:2.8-r36.4.0
+docker run --runtime nvidia --rm -it \
+  --cpuset-cpus="0,1" \
+  --memory="2g" \
+  -v $(pwd):/workspace \
+  -w /workspace \
+  dustynv/pytorch:2.8-r36.4.0 \
+  python3 entrenar_resnet1d_2.py
+
+
+Explicación de los parámetros clave:
+
+    --runtime nvidia: Da al contenedor acceso a la GPU CUDA de la Jetson.
+
+    --cpuset-cpus="0,1": Restringe el proceso a solo 2 núcleos de CPU (CPU 0 y CPU 1).
+
+    --memory="2g": Limita la memoria RAM máxima accesible a 2 GB.
+
+    -v $(pwd):/workspace: Monta tu carpeta actual dentro del contenedor para leer entrenar_resnet1d_2.py.
+
+en otra terminal: 
