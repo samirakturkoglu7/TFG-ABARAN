@@ -1,0 +1,39 @@
+ for m in 1g 900m 800m 700m; do docker run --rm --runtime nvidia --memory=$m --memory-swap=$m --cpuset-cpus=0,1 -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag down_${m}_r1 --seed 1 --out-dir results --batch-size 64 --n-train 8000 --n-test 2000; echo "$m exit=$?"; done
+[    0.02s] start              cg=232.6 MB  anon=227.3 MB  rss=379.9 MB  cuda_alloc=None MB
+[    0.16s] cuda_init          cg=340.7 MB  anon=258.8 MB  rss=495.4 MB  cuda_alloc=0.0 MB
+[    1.08s] data_ready         cg=380.0 MB  anon=298.0 MB  rss=535.5 MB  cuda_alloc=0.0 MB
+[    2.57s] model_on_device    cg=425.4 MB  anon=341.7 MB  rss=589.6 MB  cuda_alloc=0.3 MB
+[    2.92s] first_forward      cg=695.4 MB  anon=565.4 MB  rss=926.3 MB  cuda_alloc=41.7 MB
+[    3.08s] first_backward     cg=814.8 MB  anon=652.5 MB  rss=1066.8 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[    8.64s] epoch_1            cg=920.8 MB  anon=755.8 MB  rss=1181.5 MB  cuda_alloc=17.3 MB
+[   13.72s] epoch_2            cg=921.4 MB  anon=756.5 MB  rss=1182.2 MB  cuda_alloc=17.3 MB
+[   18.84s] epoch_3            cg=921.4 MB  anon=756.5 MB  rss=1182.2 MB  cuda_alloc=17.3 MB
+1g exit=0
+[    0.02s] start              cg=232.2 MB  anon=227.0 MB  rss=379.6 MB  cuda_alloc=None MB
+[    0.14s] cuda_init          cg=264.2 MB  anon=258.6 MB  rss=495.2 MB  cuda_alloc=0.0 MB
+[    1.05s] data_ready         cg=303.5 MB  anon=297.8 MB  rss=535.2 MB  cuda_alloc=0.0 MB
+[    2.54s] model_on_device    cg=348.9 MB  anon=341.4 MB  rss=589.3 MB  cuda_alloc=0.3 MB
+[    2.87s] first_forward      cg=573.5 MB  anon=565.1 MB  rss=925.9 MB  cuda_alloc=41.7 MB
+[    3.02s] first_backward     cg=661.3 MB  anon=652.2 MB  rss=1066.2 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[    8.56s] epoch_1            cg=767.1 MB  anon=755.6 MB  rss=1181.2 MB  cuda_alloc=17.3 MB
+[   13.87s] epoch_2            cg=767.9 MB  anon=756.2 MB  rss=1181.9 MB  cuda_alloc=17.3 MB
+[   18.96s] epoch_3            cg=767.9 MB  anon=756.3 MB  rss=1181.9 MB  cuda_alloc=17.3 MB
+900m exit=0
+[    0.02s] start              cg=234.9 MB  anon=229.7 MB  rss=382.3 MB  cuda_alloc=None MB
+[    0.16s] cuda_init          cg=356.4 MB  anon=261.2 MB  rss=497.7 MB  cuda_alloc=0.0 MB
+[    1.08s] data_ready         cg=395.7 MB  anon=300.4 MB  rss=537.8 MB  cuda_alloc=0.0 MB
+[    2.56s] model_on_device    cg=441.0 MB  anon=344.1 MB  rss=592.0 MB  cuda_alloc=0.3 MB
+[    2.92s] first_forward      cg=710.9 MB  anon=567.8 MB  rss=928.6 MB  cuda_alloc=41.7 MB
+800m exit=137
+[    0.02s] start              cg=234.8 MB  anon=229.6 MB  rss=382.2 MB  cuda_alloc=None MB
+[    0.16s] cuda_init          cg=356.3 MB  anon=261.1 MB  rss=497.8 MB  cuda_alloc=0.0 MB
+[    1.08s] data_ready         cg=395.6 MB  anon=300.3 MB  rss=537.7 MB  cuda_alloc=0.0 MB
+[    2.57s] model_on_device    cg=440.8 MB  anon=343.9 MB  rss=591.9 MB  cuda_alloc=0.3 MB
+700m exit=137
+

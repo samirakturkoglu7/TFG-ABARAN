@@ -1,0 +1,10 @@
+tag,group,status,last_stage,exit,oom_killed,val_acc,train_s,cg_limit_mb,cg_peak_mb,cg_anon_peak_mb,cg_peak_kernel_mb,rss_peak_mb,cuda_max_alloc_mb,cuda_free_min_mb
+base_noswap_r1,base_noswap,ok,end,,,98.9,16.13,2048.0,763.1,754.0,,1179.5,53.3,4438.1
+base_r1,base,ok,end,0,,98.9,16.94,2048.0,773.9,757.1,,1183.0,53.3,4493.8
+base_r2,base,ok,end,,,98.05,16.59,2048.0,768.8,759.6,,1185.1,53.3,4439.5
+base_r3,base,ok,end,,,98.3,16.71,2048.0,764.6,755.4,,1180.9,53.3,4436.9
+down_1g_r1,down_1g,ok,end,,,98.85,16.27,1024.0,921.4,756.5,,1182.2,53.3,4444.1
+down_700m_r1,down_700m,killed,model_on_device,,,,,,440.8,343.9,,591.9,0.3,4839.0
+down_800m_r1,down_800m,killed,first_forward,,,,,,710.9,567.8,,928.6,42.7,4570.9
+down_900m_r1,down_900m,ok,end,,,99.0,16.43,900.0,767.9,756.3,,1181.9,53.3,4446.7
+probe_r1,probe,ok,end,0,,,0.54,2048.0,624.7,612.2,,1026.5,52.8,4632.2
