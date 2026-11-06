@@ -89,7 +89,7 @@ def proc_status(key):
 class Sampler(threading.Thread):
     """Muestrea el cgroup cada 50 ms para obtener picos aunque no haya memory.peak."""
 
-    def __init__(self, period=0.05):
+    def __init__(self, period=0.01):
         super().__init__(daemon=True)
         self.period = period
         self.peak_current = 0

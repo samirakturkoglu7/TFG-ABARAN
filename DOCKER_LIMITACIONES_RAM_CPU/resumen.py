@@ -17,8 +17,10 @@ def read_text(path):
         return ""
 
 
-def peak(events, key):
-    vals = [e[key] for e in events if e.get(key) is not None]
+def peak(events, *keys):
+    """Maximo sobre uno o varios campos. El pico muestreado puede quedar por debajo
+    del valor instantaneo de una etapa, asi que se combinan ambos."""
+    vals = [e[k] for e in events for k in keys if e.get(k) is not None]
     return max(vals) if vals else None
 
 
@@ -48,11 +50,12 @@ for ev_path in sorted(glob.glob(os.path.join(d, "*.events.jsonl"))):
         "val_acc": (res or {}).get("final_val_acc"),
         "train_s": (res or {}).get("train_time_s"),
         "cg_limit_mb": (res or {}).get("cg_limit_mb"),
-        "cg_peak_mb": peak(events, "cg_peak_sampled_mb"),
-        "cg_anon_peak_mb": peak(events, "cg_anon_peak_sampled_mb"),
+        "cg_peak_mb": peak(events, "cg_peak_sampled_mb", "cg_current_mb"),
+        "cg_anon_peak_mb": peak(events, "cg_anon_peak_sampled_mb", "cg_anon_mb"),
         "cg_peak_kernel_mb": peak(events, "cg_peak_kernel_mb"),
         "rss_peak_mb": peak(events, "rss_peak_mb"),
         "cuda_max_alloc_mb": peak(events, "cuda_max_alloc_mb"),
+        "cuda_free_min_mb": min((e["cuda_free_mb"] for e in events if e.get("cuda_free_mb") is not None), default=None),
     })
 
 if not rows:
@@ -65,7 +68,7 @@ with open(os.path.join(d, "resumen.csv"), "w", newline="") as f:
     w.writerows(rows)
 
 show = ["tag", "status", "last_stage", "exit", "oom_killed", "val_acc", "train_s",
-        "cg_peak_mb", "cg_anon_peak_mb", "rss_peak_mb", "cuda_max_alloc_mb"]
+        "cg_peak_mb", "cg_anon_peak_mb", "rss_peak_mb", "cuda_max_alloc_mb", "cuda_free_min_mb"]
 widths = {c: max(len(c), *(len(str(r[c])) for r in rows)) for c in show}
 print("  ".join(c.ljust(widths[c]) for c in show))
 for r in rows:
