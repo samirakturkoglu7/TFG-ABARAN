@@ -1,0 +1,68 @@
+ docker run --rm --runtime nvidia --memory=2g --memory-swap=2g --cpuset-cpus=0,1 -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag probe_r1 --seed 1 --out-dir results --batch-size 64 --n-train 64 --n-test 64 --max-steps 1; echo $? | tee results/probe_r1.exit
+[    0.02s] start              cg=231.4 MB  anon=226.0 MB  rss=378.6 MB  cuda_alloc=None MB
+[    0.14s] cuda_init          cg=263.4 MB  anon=257.5 MB  rss=494.3 MB  cuda_alloc=0.0 MB
+[    0.16s] data_ready         cg=263.8 MB  anon=258.1 MB  rss=495.5 MB  cuda_alloc=0.0 MB
+[    1.62s] model_on_device    cg=309.3 MB  anon=301.7 MB  rss=549.7 MB  cuda_alloc=0.3 MB
+[    1.96s] first_forward      cg=533.5 MB  anon=525.2 MB  rss=886.0 MB  cuda_alloc=41.7 MB
+[    2.11s] first_backward     cg=624.7 MB  anon=612.2 MB  rss=1026.5 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+0
+
+
+ cat results/probe_r1.json 
+{
+  "tag": "probe_r1",
+  "config": {
+    "tag": "probe_r1",
+    "out_dir": "results",
+    "seed": 1,
+    "epochs": 3,
+    "batch_size": 64,
+    "lr": 0.001,
+    "n_train": 64,
+    "n_test": 64,
+    "input_size": 1024,
+    "n_classes": 10,
+    "empty_cache": "none",
+    "max_steps": 1,
+    "save_model": false
+  },
+  "status": "ok",
+  "torch": "2.7.0",
+  "cuda": "12.6",
+  "cudnn": 90300,
+  "python": "3.10.12",
+  "cg_limit_mb": 2048.0,
+  "device": "cuda",
+  "gpu_name": "Orin",
+  "n_params": 61274,
+  "train_time_s": 0.54,
+  "steps": 1,
+  "final": {
+    "stage": "end",
+    "t": 2.17,
+    "cg_current_mb": 676.4,
+    "cg_anon_mb": 663.7,
+    "cg_peak_kernel_mb": null,
+    "cg_peak_sampled_mb": 676.4,
+    "cg_anon_peak_sampled_mb": 663.7,
+    "rss_mb": 1083.6,
+    "rss_peak_mb": 1083.6,
+    "cuda_alloc_mb": 16.2,
+    "cuda_max_alloc_mb": 52.8,
+    "cuda_reserved_mb": 70.0,
+    "cuda_free_mb": 4580.4,
+    "cuda_total_mb": 7620.0
+  }
+
+cat results/probe_r1.events.jsonl 
+{"stage": "start", "t": 0.02, "cg_current_mb": 231.4, "cg_anon_mb": 226.0, "cg_peak_kernel_mb": null, "cg_peak_sampled_mb": 229.6, "cg_anon_peak_sampled_mb": 224.3, "rss_mb": 378.6, "rss_peak_mb": 378.6}
+{"stage": "cuda_init", "t": 0.14, "cg_current_mb": 263.4, "cg_anon_mb": 257.5, "cg_peak_kernel_mb": null, "cg_peak_sampled_mb": 255.7, "cg_anon_peak_sampled_mb": 249.9, "rss_mb": 494.3, "rss_peak_mb": 494.3, "cuda_alloc_mb": 0.0, "cuda_max_alloc_mb": 0.0, "cuda_reserved_mb": 2.0, "cuda_free_mb": 4994.1, "cuda_total_mb": 7620.0}
+{"stage": "data_ready", "t": 0.16, "cg_current_mb": 263.8, "cg_anon_mb": 258.1, "cg_peak_kernel_mb": null, "cg_peak_sampled_mb": 255.7, "cg_anon_peak_sampled_mb": 249.9, "rss_mb": 495.5, "rss_peak_mb": 495.5, "cuda_alloc_mb": 0.0, "cuda_max_alloc_mb": 0.0, "cuda_reserved_mb": 2.0, "cuda_free_mb": 4993.6, "cuda_total_mb": 7620.0}
+{"stage": "model_on_device", "t": 1.62, "cg_current_mb": 309.3, "cg_anon_mb": 301.7, "cg_peak_kernel_mb": null, "cg_peak_sampled_mb": 308.9, "cg_anon_peak_sampled_mb": 301.4, "rss_mb": 549.7, "rss_peak_mb": 549.7, "cuda_alloc_mb": 0.3, "cuda_max_alloc_mb": 0.3, "cuda_reserved_mb": 2.0, "cuda_free_mb": 4950.0, "cuda_total_mb": 7620.0}
+{"stage": "first_forward", "t": 1.96, "cg_current_mb": 533.5, "cg_anon_mb": 525.2, "cg_peak_kernel_mb": null, "cg_peak_sampled_mb": 484.5, "cg_anon_peak_sampled_mb": 476.2, "rss_mb": 886.0, "rss_peak_mb": 886.0, "cuda_alloc_mb": 41.7, "cuda_max_alloc_mb": 42.7, "cuda_reserved_mb": 50.0, "cuda_free_mb": 4725.4, "cuda_total_mb": 7620.0}
+{"stage": "first_backward", "t": 2.11, "cg_current_mb": 624.7, "cg_anon_mb": 612.2, "cg_peak_kernel_mb": null, "cg_peak_sampled_mb": 616.5, "cg_anon_peak_sampled_mb": 604.3, "rss_mb": 1026.5, "rss_peak_mb": 1026.5, "cuda_alloc_mb": 17.0, "cuda_max_alloc_mb": 52.8, "cuda_reserved_mb": 70.0, "cuda_free_mb": 4632.2, "cuda_total_mb": 7620.0}
+
+

@@ -240,7 +240,7 @@ def parse_args():
     p.add_argument("--tag", required=True, help="Nombre unico de la ejecucion")
     p.add_argument("--out-dir", default="results")
     p.add_argument("--seed", type=int, default=1)
-    p.add_argument("--epochs", type=int, default=20)
+    p.add_argument("--epochs", type=int, default=3)
     p.add_argument("--batch-size", type=int, default=64)
     p.add_argument("--lr", type=float, default=1e-3)
     p.add_argument("--n-train", type=int, default=8000)
