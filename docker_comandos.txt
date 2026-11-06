@@ -1,10 +1,10 @@
-docker pull dustynv/pytorch:2.8-r36.4.0
+docker pull dustynv/pytorch:2.7-r36.4.0
 docker run --runtime nvidia --rm -it \
   --cpuset-cpus="0,1" \
   --memory="2g" \
   -v $(pwd):/workspace \
   -w /workspace \
-  dustynv/pytorch:2.8-r36.4.0 \
+  dustynv/pytorch:2.7-r36.4.0 \
   python3 entrenar_resnet1d_2.py
 
 
@@ -19,3 +19,4 @@ Explicación de los parámetros clave:
     -v $(pwd):/workspace: Monta tu carpeta actual dentro del contenedor para leer entrenar_resnet1d_2.py.
 
 en otra terminal: 
+	tegrastats
