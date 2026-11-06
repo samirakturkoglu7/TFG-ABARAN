@@ -1,0 +1,1 @@
+for m in 1g 900m 800m 700m; do docker run --rm --runtime nvidia --memory=$m --memory-swap=$m --cpuset-cpus=0,1 -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag down_${m}_r1 --seed 1 --out-dir results --batch-size 64 --n-train 8000 --n-test 2000; echo "$m exit=$?"; done

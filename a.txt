@@ -1,0 +1,4 @@
+
+docker run --rm --runtime nvidia --memory=2g --memory-swap=2g --cpuset-cpus=0,1 -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag base_r2 --seed 2 --out-dir results --batch-size 64 --n-train 8000 --n-test 2000
+
+docker run --rm --runtime nvidia --memory=2g --memory-swap=2g --cpuset-cpus=0,1 -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag base_r3 --seed 3 --out-dir results --batch-size 64 --n-train 8000 --n-test 2000
