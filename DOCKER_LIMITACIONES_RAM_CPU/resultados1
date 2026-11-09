@@ -1,0 +1,114 @@
+for p in 1:0 2:0,1 4:0-3 6:0-5; do n=${p%%:*}; c=${p#*:}; docker run --rm --runtime nvidia --memory=2g --memory-swap=2g --cpuset-cpus=$c -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag cpu${n}_r1 --seed 1 --out-dir results --batch-size 64 --n-train 8000 --n-test 2000; echo "cpus=$n exit=$?"; done
+[    0.20s] start              cg=853.4 MB  anon=228.0 MB  rss=380.3 MB  cuda_alloc=None MB
+[    0.58s] cuda_init          cg=964.0 MB  anon=259.5 MB  rss=496.0 MB  cuda_alloc=0.0 MB
+[    1.54s] data_ready         cg=1003.4 MB  anon=298.7 MB  rss=535.8 MB  cuda_alloc=0.0 MB
+[    4.53s] model_on_device    cg=1081.0 MB  anon=342.2 MB  rss=589.8 MB  cuda_alloc=0.3 MB
+[    6.86s] first_forward      cg=1496.0 MB  anon=566.1 MB  rss=926.5 MB  cuda_alloc=41.7 MB
+[    7.98s] first_backward     cg=1686.5 MB  anon=653.2 MB  rss=1066.7 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   12.23s] epoch_1            cg=1809.4 MB  anon=756.6 MB  rss=1182.2 MB  cuda_alloc=17.3 MB
+[   15.68s] epoch_2            cg=1809.8 MB  anon=757.1 MB  rss=1182.7 MB  cuda_alloc=17.3 MB
+[   18.98s] epoch_3            cg=1810.1 MB  anon=757.4 MB  rss=1182.9 MB  cuda_alloc=17.3 MB
+cpus=1 exit=0
+[    0.02s] start              cg=234.7 MB  anon=229.4 MB  rss=382.0 MB  cuda_alloc=None MB
+[    0.13s] cuda_init          cg=266.6 MB  anon=260.9 MB  rss=497.7 MB  cuda_alloc=0.0 MB
+[    1.05s] data_ready         cg=305.9 MB  anon=300.1 MB  rss=537.4 MB  cuda_alloc=0.0 MB
+[    2.55s] model_on_device    cg=351.3 MB  anon=343.8 MB  rss=591.7 MB  cuda_alloc=0.3 MB
+[    2.88s] first_forward      cg=575.9 MB  anon=567.5 MB  rss=928.4 MB  cuda_alloc=41.7 MB
+[    3.03s] first_backward     cg=663.3 MB  anon=654.6 MB  rss=1068.8 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[    8.40s] epoch_1            cg=767.4 MB  anon=758.3 MB  rss=1183.9 MB  cuda_alloc=17.3 MB
+[   12.70s] epoch_2            cg=768.2 MB  anon=759.1 MB  rss=1184.6 MB  cuda_alloc=17.3 MB
+[   17.84s] epoch_3            cg=768.3 MB  anon=759.1 MB  rss=1184.6 MB  cuda_alloc=17.3 MB
+cpus=2 exit=0
+[    0.02s] start              cg=234.5 MB  anon=229.1 MB  rss=381.8 MB  cuda_alloc=None MB
+[    0.16s] cuda_init          cg=266.6 MB  anon=254.0 MB  rss=497.3 MB  cuda_alloc=0.0 MB
+[    1.11s] data_ready         cg=305.8 MB  anon=299.9 MB  rss=537.3 MB  cuda_alloc=0.0 MB
+[    2.62s] model_on_device    cg=351.3 MB  anon=343.7 MB  rss=591.7 MB  cuda_alloc=0.3 MB
+[    2.99s] first_forward      cg=575.8 MB  anon=567.3 MB  rss=928.1 MB  cuda_alloc=41.7 MB
+[    3.16s] first_backward     cg=663.4 MB  anon=654.3 MB  rss=1068.4 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[    8.73s] epoch_1            cg=767.0 MB  anon=757.7 MB  rss=1183.4 MB  cuda_alloc=17.3 MB
+[   14.02s] epoch_2            cg=767.7 MB  anon=758.4 MB  rss=1184.1 MB  cuda_alloc=17.3 MB
+[   19.11s] epoch_3            cg=767.7 MB  anon=758.4 MB  rss=1184.0 MB  cuda_alloc=17.3 MB
+cpus=4 exit=0
+[    0.02s] start              cg=237.8 MB  anon=232.3 MB  rss=384.9 MB  cuda_alloc=None MB
+[    0.18s] cuda_init          cg=269.8 MB  anon=263.9 MB  rss=500.5 MB  cuda_alloc=0.0 MB
+[    1.12s] data_ready         cg=309.0 MB  anon=303.1 MB  rss=540.5 MB  cuda_alloc=0.0 MB
+[    2.82s] model_on_device    cg=354.4 MB  anon=346.7 MB  rss=594.6 MB  cuda_alloc=0.3 MB
+[    3.20s] first_forward      cg=578.9 MB  anon=570.4 MB  rss=931.3 MB  cuda_alloc=41.7 MB
+[    3.39s] first_backward     cg=666.6 MB  anon=657.5 MB  rss=1071.8 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[    9.14s] epoch_1            cg=770.2 MB  anon=760.9 MB  rss=1186.6 MB  cuda_alloc=17.3 MB
+[   14.26s] epoch_2            cg=770.9 MB  anon=761.6 MB  rss=1187.4 MB  cuda_alloc=17.3 MB
+[   19.46s] epoch_3            cg=771.1 MB  anon=761.6 MB  rss=1187.3 MB  cuda_alloc=17.3 MB
+cpus=6 exit=0
+
+
+
+
+
+for c in 0 0,1 0-3 0-5; do echo "cpuset=$c"; docker run --rm --runtime nvidia --memory=2g --memory-swap=2g --cpuset-cpus=$c -v "$PWD":/workspace -w /workspace $IMAGE python3 benchmark_docker_latency.py; done
+cpuset=0
+Latencia Media (BS=1): 5.609 ms (± 0.370 ms)
+cpuset=0,1
+Latencia Media (BS=1): 5.577 ms (± 0.245 ms)
+cpuset=0-3
+Latencia Media (BS=1): 5.632 ms (± 0.298 ms)
+cpuset=0-5
+Latencia Media (BS=1): 5.515 ms (± 0.368 ms)
+
+
+
+
+for m in 850m 800m; do for r in 1 2 3; do sync; sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'; docker run --rm --runtime nvidia --memory=$m --memory-swap=$m --cpuset-cpus=0,1 -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag cold_${m}_r${r} --seed $r --out-dir results --batch-size 64 --n-train 8000 --n-test 2000; echo "$m r$r exit=$?"; done; done
+[sudo] password for eneko: 
+[    0.21s] start              cg=849.9 MB  anon=224.3 MB  rss=376.7 MB  cuda_alloc=None MB
+[    0.66s] cuda_init          cg=849.9 MB  anon=255.9 MB  rss=489.7 MB  cuda_alloc=0.0 MB
+[    1.68s] data_ready         cg=850.0 MB  anon=295.1 MB  rss=529.4 MB  cuda_alloc=0.0 MB
+[    4.50s] model_on_device    cg=849.9 MB  anon=338.8 MB  rss=582.0 MB  cuda_alloc=0.3 MB
+[    8.69s] first_forward      cg=849.9 MB  anon=562.5 MB  rss=768.9 MB  cuda_alloc=41.7 MB
+[  227.05s] first_backward     cg=850.0 MB  anon=649.5 MB  rss=821.0 MB  cuda_alloc=17.0 MB
+850m r1 exit=137
+[    0.20s] start              cg=849.9 MB  anon=229.5 MB  rss=381.8 MB  cuda_alloc=None MB
+[    0.65s] cuda_init          cg=849.9 MB  anon=261.1 MB  rss=495.0 MB  cuda_alloc=0.0 MB
+[    1.65s] data_ready         cg=849.9 MB  anon=300.3 MB  rss=534.7 MB  cuda_alloc=0.0 MB
+[    4.36s] model_on_device    cg=849.9 MB  anon=343.9 MB  rss=586.9 MB  cuda_alloc=0.3 MB
+[    8.55s] first_forward      cg=850.0 MB  anon=567.7 MB  rss=772.4 MB  cuda_alloc=41.7 MB
+[  130.16s] first_backward     cg=850.0 MB  anon=655.1 MB  rss=827.2 MB  cuda_alloc=17.0 MB
+850m r2 exit=137
+[    0.20s] start              cg=850.0 MB  anon=229.7 MB  rss=382.0 MB  cuda_alloc=None MB
+[    0.67s] cuda_init          cg=850.0 MB  anon=261.2 MB  rss=495.0 MB  cuda_alloc=0.0 MB
+[    1.67s] data_ready         cg=850.0 MB  anon=300.4 MB  rss=534.7 MB  cuda_alloc=0.0 MB
+[    4.39s] model_on_device    cg=849.9 MB  anon=344.0 MB  rss=587.1 MB  cuda_alloc=0.3 MB
+[    8.66s] first_forward      cg=850.0 MB  anon=567.9 MB  rss=771.2 MB  cuda_alloc=41.7 MB
+850m r3 exit=137
+[    0.21s] start              cg=799.9 MB  anon=229.9 MB  rss=382.2 MB  cuda_alloc=None MB
+[    0.66s] cuda_init          cg=800.0 MB  anon=261.4 MB  rss=495.1 MB  cuda_alloc=0.0 MB
+[    1.67s] data_ready         cg=799.9 MB  anon=300.6 MB  rss=534.7 MB  cuda_alloc=0.0 MB
+[    4.93s] model_on_device    cg=799.9 MB  anon=344.2 MB  rss=582.9 MB  cuda_alloc=0.3 MB
+[   10.18s] first_forward      cg=800.0 MB  anon=568.0 MB  rss=730.8 MB  cuda_alloc=41.7 MB
+800m r1 exit=137
+[    0.21s] start              cg=799.9 MB  anon=224.4 MB  rss=376.7 MB  cuda_alloc=None MB
+[    0.66s] cuda_init          cg=799.9 MB  anon=255.9 MB  rss=489.5 MB  cuda_alloc=0.0 MB
+[    1.63s] data_ready         cg=799.9 MB  anon=295.1 MB  rss=529.4 MB  cuda_alloc=0.0 MB
+[    4.80s] model_on_device    cg=799.9 MB  anon=338.7 MB  rss=577.8 MB  cuda_alloc=0.3 MB
+[    9.54s] first_forward      cg=799.9 MB  anon=562.5 MB  rss=727.0 MB  cuda_alloc=41.7 MB
+800m r2 exit=137
+[    0.21s] start              cg=800.0 MB  anon=226.3 MB  rss=378.7 MB  cuda_alloc=None MB
+[    0.68s] cuda_init          cg=799.9 MB  anon=257.9 MB  rss=491.5 MB  cuda_alloc=0.0 MB
+[    1.70s] data_ready         cg=800.0 MB  anon=297.1 MB  rss=531.2 MB  cuda_alloc=0.0 MB
+[    4.88s] model_on_device    cg=799.9 MB  anon=340.8 MB  rss=579.9 MB  cuda_alloc=0.3 MB
+[    9.73s] first_forward      cg=800.0 MB  anon=564.5 MB  rss=728.7 MB  cuda_alloc=41.7 MB
+800m r3 exit=137
+
+
+
