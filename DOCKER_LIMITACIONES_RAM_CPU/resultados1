@@ -112,3 +112,274 @@ for m in 850m 800m; do for r in 1 2 3; do sync; sudo sh -c 'echo 3 > /proc/sys/v
 
 
 
+for m in 900m 1g; do for r in 1 2 3; do sync; sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'; docker run --rm --runtime nvidia --memory=$m --memory-swap=$m --cpuset-cpus=0,1 -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag cold_${m}_r${r} --seed $r --out-dir results --batch-size 64 --n-train 8000 --n-test 2000; echo "$m r$r exit=$?"; done; done
+[    0.21s] start              cg=867.7 MB  anon=229.8 MB  rss=382.2 MB  cuda_alloc=None MB
+[    0.65s] cuda_init          cg=899.9 MB  anon=261.4 MB  rss=496.8 MB  cuda_alloc=0.0 MB
+[    1.64s] data_ready         cg=899.9 MB  anon=300.6 MB  rss=535.8 MB  cuda_alloc=0.0 MB
+[    4.81s] model_on_device    cg=899.9 MB  anon=344.4 MB  rss=589.1 MB  cuda_alloc=0.3 MB
+[    9.19s] first_forward      cg=900.0 MB  anon=568.0 MB  rss=814.2 MB  cuda_alloc=41.7 MB
+[   14.68s] first_backward     cg=899.9 MB  anon=655.0 MB  rss=839.0 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+^CTraceback (most recent call last):
+  File "/workspace/entrenar_resnet1d_exp.py", line 386, in <module>
+    main()
+  File "/workspace/entrenar_resnet1d_exp.py", line 364, in main
+    run(args, ev, result)
+  File "/workspace/entrenar_resnet1d_exp.py", line 307, in run
+    outputs = model(inputs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/workspace/entrenar_resnet1d_exp.py", line 230, in forward
+    x = self.pool(self.relu(self.bn1(self.conv1(x))))
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/batchnorm.py", line 193, in forward
+    return F.batch_norm(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/functional.py", line 2822, in batch_norm
+    return torch.batch_norm(
+KeyboardInterrupt
+900m r1 exit=130
+[    0.19s] start              cg=864.0 MB  anon=195.6 MB  rss=378.6 MB  cuda_alloc=None MB
+[    0.62s] cuda_init          cg=899.9 MB  anon=257.8 MB  rss=493.3 MB  cuda_alloc=0.0 MB
+[    1.62s] data_ready         cg=900.0 MB  anon=297.0 MB  rss=532.5 MB  cuda_alloc=0.0 MB
+[    4.33s] model_on_device    cg=899.9 MB  anon=340.5 MB  rss=585.5 MB  cuda_alloc=0.3 MB
+[    8.33s] first_forward      cg=899.9 MB  anon=564.4 MB  rss=823.8 MB  cuda_alloc=41.7 MB
+[   12.56s] first_backward     cg=900.0 MB  anon=651.4 MB  rss=836.3 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+^CTraceback (most recent call last):
+  File "/workspace/entrenar_resnet1d_exp.py", line 386, in <module>
+    main()
+  File "/workspace/entrenar_resnet1d_exp.py", line 364, in main
+    run(args, ev, result)
+  File "/workspace/entrenar_resnet1d_exp.py", line 307, in run
+    outputs = model(inputs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/workspace/entrenar_resnet1d_exp.py", line 231, in forward
+    x = self.layer3(self.layer2(self.layer1(x)))
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/container.py", line 240, in forward
+    input = module(input)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/workspace/entrenar_resnet1d_exp.py", line 202, in forward
+    out = self.relu(self.bn1(self.conv1(x)))
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/conv.py", line 375, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/conv.py", line 370, in _conv_forward
+    return F.conv1d(
+KeyboardInterrupt
+900m r2 exit=130
+[    0.20s] start              cg=865.7 MB  anon=227.9 MB  rss=380.2 MB  cuda_alloc=None MB
+[    0.65s] cuda_init          cg=899.9 MB  anon=259.5 MB  rss=494.8 MB  cuda_alloc=0.0 MB
+[    1.63s] data_ready         cg=900.0 MB  anon=298.7 MB  rss=533.8 MB  cuda_alloc=0.0 MB
+[    4.92s] model_on_device    cg=899.9 MB  anon=342.3 MB  rss=587.1 MB  cuda_alloc=0.3 MB
+[    9.24s] first_forward      cg=900.0 MB  anon=566.1 MB  rss=815.2 MB  cuda_alloc=41.7 MB
+[   14.58s] first_backward     cg=899.9 MB  anon=653.1 MB  rss=837.1 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+^CTraceback (most recent call last):
+  File "/workspace/entrenar_resnet1d_exp.py", line 386, in <module>
+    main()
+  File "/workspace/entrenar_resnet1d_exp.py", line 364, in main
+    run(args, ev, result)
+  File "/workspace/entrenar_resnet1d_exp.py", line 304, in run
+    for inputs, labels in train_loader:
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 735, in __next__
+    data = self._next_data()
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 791, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/_utils/fetch.py", line 55, in fetch
+    return self.collate_fn(data)
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/_utils/collate.py", line 398, in default_collate
+    return collate(batch, collate_fn_map=default_collate_fn_map)
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/_utils/collate.py", line 211, in collate
+    return [
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/_utils/collate.py", line 212, in <listcomp>
+    collate(samples, collate_fn_map=collate_fn_map)
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/_utils/collate.py", line 155, in collate
+    return collate_fn_map[elem_type](batch, collate_fn_map=collate_fn_map)
+KeyboardInterrupt
+900m r3 exit=130
+[    0.19s] start              cg=863.9 MB  anon=226.0 MB  rss=378.3 MB  cuda_alloc=None MB
+[    0.56s] cuda_init          cg=1000.9 MB  anon=257.5 MB  rss=493.8 MB  cuda_alloc=0.0 MB
+[    1.51s] data_ready         cg=1023.9 MB  anon=296.7 MB  rss=533.8 MB  cuda_alloc=0.0 MB
+[    4.25s] model_on_device    cg=1023.9 MB  anon=340.3 MB  rss=586.3 MB  cuda_alloc=0.3 MB
+[    7.48s] first_forward      cg=1024.0 MB  anon=564.1 MB  rss=867.5 MB  cuda_alloc=41.7 MB
+[    9.90s] first_backward     cg=1023.9 MB  anon=651.1 MB  rss=914.0 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   17.36s] epoch_1            cg=1024.0 MB  anon=754.5 MB  rss=958.5 MB  cuda_alloc=17.3 MB
+[   22.95s] epoch_2            cg=1024.0 MB  anon=755.5 MB  rss=958.7 MB  cuda_alloc=17.3 MB
+[   28.29s] epoch_3            cg=1024.0 MB  anon=755.5 MB  rss=958.7 MB  cuda_alloc=17.3 MB
+1g r1 exit=0
+[    0.19s] start              cg=864.0 MB  anon=226.1 MB  rss=378.4 MB  cuda_alloc=None MB
+[    0.56s] cuda_init          cg=1000.9 MB  anon=257.6 MB  rss=494.1 MB  cuda_alloc=0.0 MB
+[    1.51s] data_ready         cg=1023.9 MB  anon=296.9 MB  rss=534.1 MB  cuda_alloc=0.0 MB
+[    4.22s] model_on_device    cg=1023.9 MB  anon=340.4 MB  rss=586.6 MB  cuda_alloc=0.3 MB
+[    7.45s] first_forward      cg=1023.9 MB  anon=564.2 MB  rss=867.0 MB  cuda_alloc=41.7 MB
+[    9.89s] first_backward     cg=1024.0 MB  anon=651.2 MB  rss=914.3 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   17.13s] epoch_1            cg=1024.0 MB  anon=754.9 MB  rss=957.9 MB  cuda_alloc=17.3 MB
+[   22.87s] epoch_2            cg=1023.9 MB  anon=755.5 MB  rss=958.4 MB  cuda_alloc=17.3 MB
+[   28.29s] epoch_3            cg=1023.9 MB  anon=755.6 MB  rss=958.6 MB  cuda_alloc=17.3 MB
+1g r2 exit=0
+[    0.20s] start              cg=867.6 MB  anon=229.9 MB  rss=382.2 MB  cuda_alloc=None MB
+[    0.58s] cuda_init          cg=1004.7 MB  anon=261.4 MB  rss=497.8 MB  cuda_alloc=0.0 MB
+[    1.53s] data_ready         cg=1023.9 MB  anon=300.6 MB  rss=537.7 MB  cuda_alloc=0.0 MB
+[    4.82s] model_on_device    cg=1023.9 MB  anon=344.2 MB  rss=590.2 MB  cuda_alloc=0.3 MB
+[    8.34s] first_forward      cg=1023.9 MB  anon=568.0 MB  rss=871.1 MB  cuda_alloc=41.7 MB
+[   10.98s] first_backward     cg=1023.9 MB  anon=655.1 MB  rss=914.6 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   19.02s] epoch_1            cg=1023.9 MB  anon=758.6 MB  rss=959.6 MB  cuda_alloc=17.3 MB
+[   24.90s] epoch_2            cg=1024.0 MB  anon=759.3 MB  rss=959.2 MB  cuda_alloc=17.3 MB
+[   30.39s] epoch_3            cg=1024.0 MB  anon=759.4 MB  rss=959.1 MB  cuda_alloc=17.3 MB
+1g r3 exit=0
+
+
+for p in 1:0 2:0,1 6:0-5; do n=${p%%:*}; c=${p#*:}; for r in 1 2 3; do sync; sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'; docker run --rm --runtime nvidia --memory=2g --memory-swap=2g --cpuset-cpus=$c -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag cpuc${n}_r${r} --seed $r --out-dir results --batch-size 64 --n-train 8000 --n-test 2000; echo "cpus=$n r$r exit=$?"; done; done
+[    0.19s] start              cg=865.7 MB  anon=228.0 MB  rss=380.3 MB  cuda_alloc=None MB
+[    0.56s] cuda_init          cg=1001.6 MB  anon=259.5 MB  rss=495.8 MB  cuda_alloc=0.0 MB
+[    1.51s] data_ready         cg=1040.9 MB  anon=298.7 MB  rss=535.9 MB  cuda_alloc=0.0 MB
+[    4.29s] model_on_device    cg=1118.6 MB  anon=342.4 MB  rss=590.0 MB  cuda_alloc=0.3 MB
+[    6.64s] first_forward      cg=1535.0 MB  anon=566.1 MB  rss=926.6 MB  cuda_alloc=41.7 MB
+[    7.75s] first_backward     cg=1725.6 MB  anon=653.1 MB  rss=1066.8 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   12.06s] epoch_1            cg=1850.5 MB  anon=756.6 MB  rss=1182.1 MB  cuda_alloc=17.3 MB
+[   15.61s] epoch_2            cg=1851.1 MB  anon=757.3 MB  rss=1182.8 MB  cuda_alloc=17.3 MB
+[   18.99s] epoch_3            cg=1851.2 MB  anon=757.3 MB  rss=1182.8 MB  cuda_alloc=17.3 MB
+cpus=1 r1 exit=0
+[    0.20s] start              cg=863.7 MB  anon=226.0 MB  rss=378.3 MB  cuda_alloc=None MB
+[    0.60s] cuda_init          cg=1000.6 MB  anon=257.5 MB  rss=494.0 MB  cuda_alloc=0.0 MB
+[    1.56s] data_ready         cg=1039.9 MB  anon=296.8 MB  rss=533.8 MB  cuda_alloc=0.0 MB
+[    4.79s] model_on_device    cg=1117.5 MB  anon=340.3 MB  rss=588.0 MB  cuda_alloc=0.3 MB
+[    7.16s] first_forward      cg=1533.0 MB  anon=564.2 MB  rss=924.6 MB  cuda_alloc=41.7 MB
+[    8.29s] first_backward     cg=1723.5 MB  anon=651.1 MB  rss=1064.8 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   12.54s] epoch_1            cg=1848.5 MB  anon=754.7 MB  rss=1180.3 MB  cuda_alloc=17.3 MB
+[   15.87s] epoch_2            cg=1849.3 MB  anon=755.4 MB  rss=1181.1 MB  cuda_alloc=17.3 MB
+[   19.09s] epoch_3            cg=1849.3 MB  anon=755.5 MB  rss=1181.0 MB  cuda_alloc=17.3 MB
+cpus=1 r2 exit=0
+[    0.19s] start              cg=863.7 MB  anon=226.0 MB  rss=378.3 MB  cuda_alloc=None MB
+[    0.58s] cuda_init          cg=1000.6 MB  anon=257.5 MB  rss=493.9 MB  cuda_alloc=0.0 MB
+[    1.54s] data_ready         cg=1039.9 MB  anon=296.7 MB  rss=534.0 MB  cuda_alloc=0.0 MB
+[    4.74s] model_on_device    cg=1117.7 MB  anon=340.4 MB  rss=588.0 MB  cuda_alloc=0.3 MB
+[    7.09s] first_forward      cg=1533.0 MB  anon=564.2 MB  rss=924.6 MB  cuda_alloc=41.7 MB
+[    8.20s] first_backward     cg=1723.6 MB  anon=651.2 MB  rss=1064.8 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   12.35s] epoch_1            cg=1849.1 MB  anon=755.4 MB  rss=1180.9 MB  cuda_alloc=17.3 MB
+[   15.71s] epoch_2            cg=1850.0 MB  anon=756.1 MB  rss=1181.6 MB  cuda_alloc=17.3 MB
+[   18.99s] epoch_3            cg=1850.0 MB  anon=756.2 MB  rss=1181.8 MB  cuda_alloc=17.3 MB
+cpus=1 r3 exit=0
+[    0.19s] start              cg=864.9 MB  anon=196.5 MB  rss=379.5 MB  cuda_alloc=None MB
+[    0.57s] cuda_init          cg=1001.9 MB  anon=258.7 MB  rss=495.0 MB  cuda_alloc=0.0 MB
+[    1.49s] data_ready         cg=1041.1 MB  anon=297.8 MB  rss=535.1 MB  cuda_alloc=0.0 MB
+[    4.16s] model_on_device    cg=1118.9 MB  anon=341.6 MB  rss=589.1 MB  cuda_alloc=0.3 MB
+[    6.45s] first_forward      cg=1534.2 MB  anon=565.3 MB  rss=925.9 MB  cuda_alloc=41.7 MB
+[    7.54s] first_backward     cg=1724.8 MB  anon=652.3 MB  rss=1066.0 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   13.42s] epoch_1            cg=1849.9 MB  anon=755.9 MB  rss=1181.6 MB  cuda_alloc=17.3 MB
+[   18.74s] epoch_2            cg=1850.6 MB  anon=756.6 MB  rss=1182.3 MB  cuda_alloc=17.3 MB
+[   23.86s] epoch_3            cg=1850.6 MB  anon=756.6 MB  rss=1182.3 MB  cuda_alloc=17.3 MB
+cpus=2 r1 exit=0
+[    0.20s] start              cg=863.9 MB  anon=226.1 MB  rss=378.4 MB  cuda_alloc=None MB
+[    0.58s] cuda_init          cg=1000.8 MB  anon=257.6 MB  rss=494.2 MB  cuda_alloc=0.0 MB
+[    1.50s] data_ready         cg=1040.2 MB  anon=296.8 MB  rss=533.9 MB  cuda_alloc=0.0 MB
+[    4.53s] model_on_device    cg=1117.9 MB  anon=340.4 MB  rss=588.1 MB  cuda_alloc=0.3 MB
+[    6.88s] first_forward      cg=1533.2 MB  anon=564.2 MB  rss=924.6 MB  cuda_alloc=41.7 MB
+[    7.99s] first_backward     cg=1723.9 MB  anon=651.2 MB  rss=1064.9 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   14.02s] epoch_1            cg=1848.6 MB  anon=754.6 MB  rss=1179.8 MB  cuda_alloc=17.3 MB
+[   19.44s] epoch_2            cg=1849.4 MB  anon=755.3 MB  rss=1180.5 MB  cuda_alloc=17.3 MB
+[   24.76s] epoch_3            cg=1849.4 MB  anon=755.3 MB  rss=1180.5 MB  cuda_alloc=17.3 MB
+cpus=2 r2 exit=0
+[    0.20s] start              cg=862.2 MB  anon=192.7 MB  rss=376.7 MB  cuda_alloc=None MB
+[    0.60s] cuda_init          cg=999.1 MB  anon=255.9 MB  rss=492.2 MB  cuda_alloc=0.0 MB
+[    1.53s] data_ready         cg=1038.4 MB  anon=295.1 MB  rss=532.3 MB  cuda_alloc=0.0 MB
+[    4.60s] model_on_device    cg=1116.3 MB  anon=338.8 MB  rss=586.4 MB  cuda_alloc=0.3 MB
+[    6.93s] first_forward      cg=1531.5 MB  anon=562.5 MB  rss=922.8 MB  cuda_alloc=41.7 MB
+[    8.04s] first_backward     cg=1722.0 MB  anon=649.5 MB  rss=1063.4 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   14.09s] epoch_1            cg=1847.4 MB  anon=753.5 MB  rss=1179.0 MB  cuda_alloc=17.3 MB
+[   19.53s] epoch_2            cg=1848.2 MB  anon=754.2 MB  rss=1179.7 MB  cuda_alloc=17.3 MB
+[   24.65s] epoch_3            cg=1848.2 MB  anon=754.2 MB  rss=1179.7 MB  cuda_alloc=17.3 MB
+cpus=2 r3 exit=0
+[    0.20s] start              cg=872.3 MB  anon=234.2 MB  rss=386.5 MB  cuda_alloc=None MB
+[    0.60s] cuda_init          cg=1009.4 MB  anon=265.8 MB  rss=502.0 MB  cuda_alloc=0.0 MB
+[    1.53s] data_ready         cg=1048.4 MB  anon=305.0 MB  rss=542.1 MB  cuda_alloc=0.0 MB
+[    4.63s] model_on_device    cg=1126.4 MB  anon=348.7 MB  rss=596.2 MB  cuda_alloc=0.3 MB
+[    6.96s] first_forward      cg=1541.6 MB  anon=572.3 MB  rss=932.6 MB  cuda_alloc=41.7 MB
+[    8.06s] first_backward     cg=1732.3 MB  anon=659.4 MB  rss=1072.8 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   13.81s] epoch_1            cg=1857.3 MB  anon=763.1 MB  rss=1188.6 MB  cuda_alloc=17.3 MB
+[   19.34s] epoch_2            cg=1858.0 MB  anon=763.8 MB  rss=1189.3 MB  cuda_alloc=17.3 MB
+[   24.80s] epoch_3            cg=1858.2 MB  anon=763.8 MB  rss=1189.3 MB  cuda_alloc=17.3 MB
+cpus=6 r1 exit=0
+[    0.20s] start              cg=877.6 MB  anon=239.6 MB  rss=391.9 MB  cuda_alloc=None MB
+[    0.59s] cuda_init          cg=1014.8 MB  anon=271.1 MB  rss=507.5 MB  cuda_alloc=0.0 MB
+[    1.56s] data_ready         cg=1053.9 MB  anon=310.4 MB  rss=547.5 MB  cuda_alloc=0.0 MB
+[    4.62s] model_on_device    cg=1131.6 MB  anon=353.9 MB  rss=601.6 MB  cuda_alloc=0.3 MB
+[    6.96s] first_forward      cg=1544.4 MB  anon=577.7 MB  rss=938.1 MB  cuda_alloc=41.7 MB
+[    8.07s] first_backward     cg=1734.7 MB  anon=664.8 MB  rss=1078.6 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   13.62s] epoch_1            cg=1859.7 MB  anon=768.2 MB  rss=1193.5 MB  cuda_alloc=17.3 MB
+[   18.76s] epoch_2            cg=1860.4 MB  anon=768.8 MB  rss=1194.3 MB  cuda_alloc=17.3 MB
+[   23.80s] epoch_3            cg=1860.3 MB  anon=768.8 MB  rss=1194.2 MB  cuda_alloc=17.3 MB
+cpus=6 r2 exit=0
+[    0.19s] start              cg=872.6 MB  anon=234.4 MB  rss=386.7 MB  cuda_alloc=None MB
+[    0.56s] cuda_init          cg=1009.4 MB  anon=265.9 MB  rss=502.4 MB  cuda_alloc=0.0 MB
+[    1.48s] data_ready         cg=1048.7 MB  anon=305.2 MB  rss=542.4 MB  cuda_alloc=0.0 MB
+[    4.19s] model_on_device    cg=1126.6 MB  anon=348.8 MB  rss=596.4 MB  cuda_alloc=0.3 MB
+[    6.48s] first_forward      cg=1541.7 MB  anon=572.5 MB  rss=932.8 MB  cuda_alloc=41.7 MB
+[    7.56s] first_backward     cg=1732.4 MB  anon=659.5 MB  rss=1072.9 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+[   13.62s] epoch_1            cg=1857.1 MB  anon=762.9 MB  rss=1188.5 MB  cuda_alloc=17.3 MB
+[   19.05s] epoch_2            cg=1858.0 MB  anon=763.6 MB  rss=1189.0 MB  cuda_alloc=17.3 MB
+[   24.20s] epoch_3            cg=1858.0 MB  anon=763.7 MB  rss=1189.2 MB  cuda_alloc=17.3 MB
+cpus=6 r3 exit=0
+
+
+
