@@ -3,4 +3,10 @@
    for c in 0 0,1 0-3 0-5; do echo "cpuset=$c"; docker run --rm --runtime nvidia --memory=2g --memory-swap=2g --cpuset-cpus=$c -v "$PWD":/workspace -w /workspace $IMAGE python3 benchmark_docker_latency.py; done
 
    for m in 850m 800m; do for r in 1 2 3; do sync; sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'; docker run --rm --runtime nvidia --memory=$m --memory-swap=$m --cpuset-cpus=0,1 -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag cold_${m}_r${r} --seed $r --out-dir results --batch-size 64 --n-train 8000 --n-test 2000; echo "$m r$r exit=$?"; done; done
+   
+   for m in 900m 1g; do for r in 1 2 3; do sync; sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'; docker run --rm --runtime nvidia --memory=$m --memory-swap=$m --cpuset-cpus=0,1 -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag cold_${m}_r${r} --seed $r --out-dir results --batch-size 64 --n-train 8000 --n-test 2000; echo "$m r$r exit=$?"; done; done
+
+for p in 1:0 2:0,1 6:0-5; do n=${p%%:*}; c=${p#*:}; for r in 1 2 3; do sync; sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'; docker run --rm --runtime nvidia --memory=2g --memory-swap=2g --cpuset-cpus=$c -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag cpuc${n}_r${r} --seed $r --out-dir results --batch-size 64 --n-train 8000 --n-test 2000; echo "cpus=$n r$r exit=$?"; done; done
+
+
 
