@@ -382,4 +382,19 @@ Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten
 cpus=6 r3 exit=0
 
 
+cat /etc/nv_tegra_release
+# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025
+# KERNEL_VARIANT: oot
+TARGET_USERSPACE_LIB_DIR=nvidia
+TARGET_USERSPACE_LIB_DIR_PATH=usr/lib/aarch64-linux-gnu/nvidia
+eneko@eneko-desktop:~/ABARAN/TFG-GIT/TFG-ABARAN/DOCKER_LIMITACIONES_RAM_CPU$ sudo nvpmodel -q
+[sudo] password for eneko: 
+NV Power Mode: 15W
+0
+eneko@eneko-desktop:~/ABARAN/TFG-GIT/TFG-ABARAN/DOCKER_LIMITACIONES_RAM_CPU$ docker --version
+Docker version 29.9.3, build 5457199
+eneko@eneko-desktop:~/ABARAN/TFG-GIT/TFG-ABARAN/DOCKER_LIMITACIONES_RAM_CPU$ stat -fc %T /sys/fs/cgroup
+cgroup2fs
+
+
 
