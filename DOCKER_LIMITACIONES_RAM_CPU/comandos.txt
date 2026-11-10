@@ -10,3 +10,4 @@ for p in 1:0 2:0,1 6:0-5; do n=${p%%:*}; c=${p#*:}; for r in 1 2 3; do sync; sud
 
 
 
+for p in 1b:1 2:2 3:3; do t=${p%%:*}; s=${p#*:}; sync; sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'; time docker run --rm --runtime nvidia --memory=900m --memory-swap=900m --cpuset-cpus=0,1 -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag cold_900m_r$t --seed $s --out-dir results --batch-size 64 --n-train 8000 --n-test 2000; echo "900m r$t exit=$?"; done
