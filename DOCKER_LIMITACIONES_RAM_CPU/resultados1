@@ -398,3 +398,51 @@ cgroup2fs
 
 
 
+for p in 1b:1 2:2 3:3; do t=${p%%:*}; s=${p#*:}; sync; sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'; time docker run --rm --runtime nvidia --memory=900m --memory-swap=900m --cpuset-cpus=0,1 -v "$PWD":/workspace -w /workspace $IMAGE python3 entrenar_resnet1d_exp.py --tag cold_900m_r$t --seed $s --out-dir results --batch-size 64 --n-train 8000 --n-test 2000; echo "900m r$t exit=$?"; done
+[    0.20s] start              cg=867.8 MB  anon=229.8 MB  rss=382.2 MB  cuda_alloc=None MB
+[    0.63s] cuda_init          cg=899.9 MB  anon=261.4 MB  rss=496.7 MB  cuda_alloc=0.0 MB
+[    1.62s] data_ready         cg=899.9 MB  anon=300.6 MB  rss=535.7 MB  cuda_alloc=0.0 MB
+[    4.78s] model_on_device    cg=900.0 MB  anon=344.3 MB  rss=589.1 MB  cuda_alloc=0.3 MB
+[    8.87s] first_forward      cg=900.0 MB  anon=568.0 MB  rss=815.9 MB  cuda_alloc=41.7 MB
+[   13.84s] first_backward     cg=899.9 MB  anon=655.0 MB  rss=840.0 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+
+real	19m2,231s
+user	0m0,118s
+sys	0m0,061s
+900m r1b exit=137
+[sudo] password for eneko: 
+[    0.20s] start              cg=862.1 MB  anon=224.3 MB  rss=376.7 MB  cuda_alloc=None MB
+[    0.63s] cuda_init          cg=899.9 MB  anon=255.9 MB  rss=489.9 MB  cuda_alloc=0.0 MB
+[    1.62s] data_ready         cg=899.9 MB  anon=295.1 MB  rss=529.6 MB  cuda_alloc=0.0 MB
+[    4.73s] model_on_device    cg=900.0 MB  anon=338.8 MB  rss=583.7 MB  cuda_alloc=0.3 MB
+[    9.03s] first_forward      cg=900.0 MB  anon=562.5 MB  rss=812.4 MB  cuda_alloc=41.7 MB
+[   14.27s] first_backward     cg=900.0 MB  anon=649.5 MB  rss=833.9 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+
+real	42m21,607s
+user	0m0,162s
+sys	0m0,092s
+900m r2 exit=137
+[sudo] password for eneko: 
+[    0.21s] start              cg=862.0 MB  anon=224.2 MB  rss=376.5 MB  cuda_alloc=None MB
+[    0.69s] cuda_init          cg=900.0 MB  anon=255.8 MB  rss=491.0 MB  cuda_alloc=0.0 MB
+[    1.71s] data_ready         cg=899.9 MB  anon=295.0 MB  rss=530.5 MB  cuda_alloc=0.0 MB
+[    4.75s] model_on_device    cg=899.9 MB  anon=338.6 MB  rss=583.5 MB  cuda_alloc=0.3 MB
+[    9.00s] first_forward      cg=900.0 MB  anon=562.3 MB  rss=816.0 MB  cuda_alloc=41.7 MB
+[   13.79s] first_backward     cg=899.9 MB  anon=649.4 MB  rss=836.0 MB  cuda_alloc=17.0 MB
+/workspace/entrenar_resnet1d_exp.py:317: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /opt/pytorch/aten/src/ATen/native/Scalar.cpp:22.)
+  running += loss.item()
+0
+real	48m54,857s
+user	0m0,199s
+sys	0m0,090s
+900m r3 exit=137
+
+
+
