@@ -1,0 +1,66 @@
+nproc
+6
+
+grep -E "POWER_MODEL|NAME|ONLINE_CPUS|MAX_FREQ" /etc/nvpmodel.conf | head -60
+# < PARAM TYPE=PARAM_TYPE NAME=PARAM_NAME >
+# ARG1_NAME ARG1_PATH_VAL
+# ARG2_NAME ARG2_PATH_VAL
+# ARG_NAME ARG_PATH_VAL
+# ARG_NAME is a macro name for argument value ARG_PATH_VAL.
+# < POWER_MODEL ID=id_num NAME=mode_name >
+# PARAM1_NAME ARG11_NAME ARG11_VAL
+# PARAM1_NAME ARG12_NAME ARG12_VAL
+# PARAM2_NAME ARG21_NAME ARG21_VAL
+# This starts a section of POWER_MODEL configurations, followed by
+# PARAM_NAME ARG_NAME ARG_VAL
+# PARAM_NAME and ARG_NAME are defined in PARAM definition sections.
+# This file must contain at least one POWER_MODEL section.
+< PARAM TYPE=FILE NAME=CPU_ONLINE >
+< PARAM TYPE=FILE NAME=FBP_POWER_GATING >
+< PARAM TYPE=FILE NAME=TPC_POWER_GATING >
+< PARAM TYPE=FILE NAME=GPU_POWER_CONTROL_ENABLE >
+< PARAM TYPE=FILE NAME=GPU_POWER_CONTROL_DISABLE >
+< PARAM TYPE=CLOCK NAME=CPU_A78_0 >
+MAX_FREQ /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+MAX_FREQ_KNEXT /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+< PARAM TYPE=CLOCK NAME=CPU_A78_1 >
+MAX_FREQ /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+MAX_FREQ_KNEXT /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+< PARAM TYPE=CLOCK NAME=CPU_A78_2 >
+MAX_FREQ /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
+MAX_FREQ_KNEXT /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
+< PARAM TYPE=CLOCK NAME=CPU_A78_3 >
+MAX_FREQ /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq
+MAX_FREQ_KNEXT /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq
+< PARAM TYPE=CLOCK NAME=CPU_A78_4 >
+MAX_FREQ /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
+MAX_FREQ_KNEXT /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
+< PARAM TYPE=CLOCK NAME=CPU_A78_5 >
+MAX_FREQ /sys/devices/system/cpu/cpu5/cpufreq/scaling_max_freq
+MAX_FREQ_KNEXT /sys/devices/system/cpu/cpu5/cpufreq/scaling_max_freq
+< PARAM TYPE=CLOCK NAME=GPU >
+MAX_FREQ /sys/devices/17000000.ga10b/devfreq/17000000.ga10b/max_freq
+MAX_FREQ_KNEXT /sys/devices/platform/17000000.gpu/devfreq_dev/max_freq
+<PARAM TYPE=CLOCK NAME=EMC >
+MAX_FREQ /sys/kernel/nvpmodel_emc_cap/emc_iso_cap
+MAX_FREQ_KNEXT /sys/kernel/nvpmodel_clk_cap/emc
+# POWER_MODEL DEFINITIONS #
+< POWER_MODEL ID=0 NAME=15W >
+CPU_A78_0 MAX_FREQ 1497600
+CPU_A78_1 MAX_FREQ 1497600
+CPU_A78_2 MAX_FREQ 1497600
+CPU_A78_3 MAX_FREQ 1497600
+CPU_A78_4 MAX_FREQ 1497600
+CPU_A78_5 MAX_FREQ 1497600
+GPU MAX_FREQ 612000000
+EMC MAX_FREQ 2133000000
+< POWER_MODEL ID=1 NAME=25W >
+CPU_A78_0 MAX_FREQ 1344000
+CPU_A78_1 MAX_FREQ 1344000
+CPU_A78_2 MAX_FREQ 1344000
+CPU_A78_3 MAX_FREQ 1344000
+CPU_A78_4 MAX_FREQ 1344000
+CPU_A78_5 MAX_FREQ 1344000
+GPU MAX_FREQ 918000000
+
+
